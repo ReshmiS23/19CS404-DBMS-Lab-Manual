@@ -48,25 +48,64 @@ Design a database for patient management, appointments, medical records, and bil
 # ER Diagram Submission - Student Name
 
 ## Scenario Chosen:
-University / Hospital (choose one)
+Hospital (choose one)
 
 ## ER Diagram:
-![ER Diagram](er_diagram.png)
+![ER Diagram](er_diagram.png)"C:\Users\acer\Pictures\Screenshots\Screenshot 2025-04-29 142745.png"
 
 ## Entities and Attributes:
-- Entity1: Attributes
-- Entity2: Attributes
-...
+```
+Patient:
+```
+Attributes: patient_id (PK), first_name, last_name, dob, gender, phone, address, insurance_info
+```
+Doctor:
+```
+Attributes: doctor_id (PK), first_name, last_name, specialization, schedule
+```
+Appointment:
+```
+Attributes: appointment_id (PK), patient_id (FK), doctor_id (FK), appointment_date, status
+```
+Billing:
+```
+Attributes: billing_id (PK), patient_id (FK), amount, billing_date, payment_status
+```
+Inventory:
+```
+Attributes: inventory_id (PK), item_name, quantity, expiration_date
 
-## Relationships and Constraints:
-- Relationship1 (Cardinality, Participation)
-- Relationship2 (Cardinality, Participation)
-...
+Relationships and Constraints:
+Patient–Appointment–Doctor:
+Relationship: A patient can have multiple appointments with different doctors.
+```
+Cardinality: Many-to-Many
+```
+Participation: Total for appointments (each appointment must link to a patient and a doctor)
+```
+Patient–Billing:
+```
+Relationship: A patient can have multiple bills.
 
-## Extension (Prerequisite / Billing):
-- Explain how you modeled prerequisites or billing.
+Cardinality: One-to-Many
 
-## Design Choices:
-Brief explanation of why you chose certain entities, relationships, and assumptions
+Participation: Partial (a patient may not be billed)
 
-## RESULT
+Extension (Prerequisite / Billing):
+Billing is modeled as a separate entity linked to Patient. Each billing record includes an amount, date, and payment status. It is one-to-many, meaning a patient can have multiple bills, but each bill belongs to only one patient.
+```
+Design Choices:
+```
+Each entity has a clear primary key to uniquely identify records.
+
+Foreign keys like patient_id, doctor_id ensure referential integrity in relationships.
+
+Normalization is followed—separating Inventory, Billing, and Appointments avoids redundancy.
+
+The Inventory entity is essential for hospital resource tracking.
+
+Using status in appointments helps manage active/cancelled/completed appointments.
+```
+✅ RESULT:
+```
+The design is normalized and maintains referential integrity. It is scalable for a hospital database system, efficiently linking patients, doctors, appointments, billing, and inventory. The relationships capture real-world constraints and provide a solid foundation for implementing the system in SQL or any relational database.****
